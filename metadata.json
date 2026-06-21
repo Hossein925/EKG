@@ -1,0 +1,8 @@
+{
+  "name": "EKG",
+  "description": "یک پلتفرم هوشمند و تعاملی برای شبیه‌سازی ضربان قلب، تغییر قطعات الکتروکاردیوگرام و تفسیر خودکار بیماری‌های قلبی با هوش مصنوعی به زبان فارسی.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

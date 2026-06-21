@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Playfair+Display:ital,wght@1,600&family=Vazirmatn:wght@300;450;550;700;850&family=JetBrains+Mono:wght@400;550;750&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-signature: "Cinzel", "Playfair Display", serif;
+}
+
+/* Custom global overrides for high-fidelity widgets */
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc; /* Beautiful bright/clean base background */
+}
+
+/* Custom premium styling for medical sliders matching Light Theme */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  height: 6px;
+  outline: none;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #2563eb;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  background: #2563eb;
+}
+
+/* Slick webkit scrollbars for medical dashboards */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
