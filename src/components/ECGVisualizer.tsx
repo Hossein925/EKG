@@ -103,6 +103,9 @@ export default function ECGVisualizer({ parameters, rhythmName, rhythmNameEnglis
 
   // Resize canvas to match its container dynamically with high-DPI (Retina) support
   useEffect(() => {
+    let lastWidth = 0;
+    let lastHeight = 0;
+
     const handleResize = () => {
       const canvas = canvasRef.current;
       const container = containerRef.current;
@@ -111,6 +114,15 @@ export default function ECGVisualizer({ parameters, rhythmName, rhythmNameEnglis
         const width = container.clientWidth;
         const height = 380;
         
+        // Prevent layout calculations and clearing points if dimensions didn't actually change
+        // (common on mobile browsers where touch & scroll toggle the address bar, triggering window resize)
+        if (width === lastWidth && height === lastHeight) {
+          return;
+        }
+
+        lastWidth = width;
+        lastHeight = height;
+
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         canvas.style.width = `${width}px`;
@@ -680,7 +692,7 @@ export default function ECGVisualizer({ parameters, rhythmName, rhythmNameEnglis
                 prInterval = parameters.prInterval + stepIndex * 0.05;
               }
             } else if (rhythmId === "mobitz_2") {
-              if (cycleIndex % 2 === 1) {
+              if (cycleIndex % 3 === 2) {
                 isDropped = true;
               }
             } else if (rhythmId === "pvc") {
@@ -869,7 +881,9 @@ export default function ECGVisualizer({ parameters, rhythmName, rhythmNameEnglis
             }
             
             let customStLevel = parameters.stLevel;
-            let customTVolume = beat.isPVC ? -1.5 : (rhythmId === "hyperkalemia" ? 2.4 : parameters.tAmplitude * tAmpMult);
+            let customTVolume = (beat.isPVC || rhythmId === "ivr" || rhythmId === "aivr")
+              ? -1.5 * qrsSign
+              : (rhythmId === "hyperkalemia" ? 2.4 : parameters.tAmplitude * tAmpMult);
 
             if (rhythmId === "lvh") {
               if (isLVHRightPrecordial) {
@@ -942,7 +956,7 @@ export default function ECGVisualizer({ parameters, rhythmName, rhythmNameEnglis
             if (u >= qrsStart && u < qrsEnd) {
               label = beat.isAshman 
                 ? "Ashman Beat (بیت اشمن)" 
-                : (beat.isPVC ? "PVC (ضربان زودرس بطنی)" : (rhythmId === "wpw" ? "Delta / QRS" : "QRS"));
+                : (beat.isPVC ? "PVC (ضربان زودرس بطنی)" : (rhythmId === "ivr" ? "IVR QRS (فرار بطنی)" : (rhythmId === "aivr" ? "AIVR QRS (بطنی تند)" : (rhythmId === "wpw" ? "Delta / QRS" : "QRS"))));
             }
 
             // 1. P Wave
@@ -995,9 +1009,9 @@ export default function ECGVisualizer({ parameters, rhythmName, rhythmNameEnglis
                 const L = qrsDur;
                 let qrsWave = 0;
 
-                if (beat.isPVC) {
-                  const r1 = -1.8;
-                  const r2 = 0.4;
+                if (beat.isPVC || rhythmId === "ivr" || rhythmId === "aivr") {
+                  const r1 = 1.8 * qrsSign * qrsAmpMult;
+                  const r2 = -0.4 * qrsSign * qrsAmpMult;
                   const jVal = customStLevel * 0.08 * stModifier;
                   if (d < L * 0.5) {
                     qrsWave = linearInterpolate(0, r1, d / (L * 0.5));

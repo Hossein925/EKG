@@ -101,6 +101,30 @@ export default function App() {
       });
     }
 
+    if (selectedPresetId === "ivr") {
+      alerts.push({
+        title: "ریتم فرار ایدیوونتریکولار (IVR) فعال است",
+        color: "bg-red-100 border-red-300 text-red-900 font-bold",
+        desc: "کانون قلبی در بطن کنترل را در دست گرفته است. کمپلکس‌های متوالی به غایت عریض و پهن (QRS > 0.12s)، فقدان کامل هرگونه موج P سینوسی جلوبرنده ربط‌دار و سرعت ضربان به شدت کند و بحرانی (۲۰ الی ۴۰ بار در دقیقه)."
+      });
+    }
+
+    if (selectedPresetId === "aivr") {
+      alerts.push({
+        title: "ریتم ایدیوونتریکولار تند شده (AIVR) فعال است",
+        color: "bg-amber-100 border-amber-300 text-amber-900 font-bold",
+        desc: "ریتم بطنی با فرکانس حد واسط (۵۰ الی ۱۱۰ بار در دقیقه) و برخورداری از شکل موج کاملا عریض و مخدوش (بومی بطن). فاقد هرگونه موج دهلیزی همنواست. معروف به ریتم بازگشت مجدد جریان خون (Reperfusion) پس از سکنه حاد قلبی."
+      });
+    }
+
+    if (selectedPresetId === "acc_junctional") {
+      alerts.push({
+        title: "ریتم جانکشنال تند شده (Accelerated Junctional) فعال است",
+        color: "bg-amber-100 border-amber-300 text-amber-900 font-bold",
+        desc: "ضربان اتصالی با فرکانس متوسط (۶۰ الی ۱۰۰ بار در دقیقه)، کمپلکس‌های QRS باریک و طبیعی و امواج P معکوس رتروگراد. این آریتمی ناشی از افزایش اتوماتیسیته کانون اتصالی AV است."
+      });
+    }
+
     if (p.bpm < 60 && p.bpm > 0) {
       alerts.push({
         title: "برادی‌کاردی (کندی ضربان)",
@@ -728,11 +752,22 @@ export default function App() {
               </div>
 
               {/* Creator Section */}
-              <div className="pt-4 border-t border-slate-100 text-center">
+              <div className="pt-4 border-t border-slate-100 text-center flex flex-col items-center justify-center gap-1.5">
                 <span className="text-[10px] text-slate-400 block uppercase tracking-wider font-mono font-bold">Developer & Creator</span>
                 <p className="text-blue-700 font-extrabold text-base sm:text-lg font-sans mt-0.5">
                   سازنده: حسین نصاری
                 </p>
+                <a 
+                  href="https://t.me/ho3in925" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#229ED9]/10 hover:bg-[#229ED9]/20 text-[#229ED9] rounded-full text-xs font-bold transition-all mt-1"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.24-5.52 3.65-.52.36-.99.53-1.42.52-.47-.01-1.37-.27-2.03-.49-.82-.27-1.47-.41-1.42-.87.03-.24.36-.49 1-.74 3.9-1.7 6.5-2.82 7.8-3.37 3.71-1.56 4.48-1.83 4.98-1.84.11 0 .35.03.51.16.14.12.18.28.19.39-.01.07-.01.21-.02.26z"/>
+                  </svg>
+                  @ho3in925
+                </a>
               </div>
 
             </div>
